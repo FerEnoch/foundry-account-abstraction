@@ -1,0 +1,11 @@
+{
+    "editor.fontFamily": "Cascadia Code",
+    "editor.fontLigatures": true,
+    "editor.inlineSuggest.fontFamily": "Hack",
+    "editor.cursorBlinking": "expand",
+    "editor.cursorSmoothCaretAnimation": "explicit",
+    "editor.cursorWidth": 0,
+    "workbench.colorCustomizations": {
+        "editorCursor.foreground": "#ffffff"
+    }
+}
