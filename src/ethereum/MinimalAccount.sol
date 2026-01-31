@@ -51,7 +51,7 @@ contract MinimalAccount is IAccount, Ownable {
 
     // Really at the end of the day, this the THE important function of an account contract.
     // It receives the PackedUserOperation and is responsible for verifying its authenticity and intent.
-    function validateUserOp( 
+    function validateUserOp(
         PackedUserOperation calldata userOp,
         bytes32 userOpHash,
         uint256 missingAccountFunds
@@ -79,7 +79,7 @@ contract MinimalAccount is IAccount, Ownable {
         return validationData; // This will be SIG_VALIDATION_SUCCESS or SIG_VALIDATION_FAILED from _validateSignature
     }
 
-    // Providing the owner (the EOA that deployed this account or to whom ownership was transferred) with direct access
+    // Providing the owner (the EOA that deployed this account or to whom ownership was transferred) with direct access (via modifier)
     // to *execute* offers valuable flexibility. The owner can perform arbitrary calls from the account to manage the account,
     // or perform operations directly, without needing to go through the UserOperation flow.
     // Make the function payable if it can forward ETH.

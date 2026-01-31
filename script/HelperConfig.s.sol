@@ -51,12 +51,12 @@ contract HelperConfig is Script {
     }
 
     function getOrCreateAnvilEthConfig() public returns (NetworkConfig memory) {
-        if (activeNetworkConfig.account != address(0)) { // Check if already configured
+        if (activeNetworkConfig.account != address(0)) {
+            // Check if already configured
             return activeNetworkConfig;
         }
 
         // For local Anvil network, we might need to deploy a mock EntryPoint:
-        // address mockEntryPoint = deployMockEntryPoint();
         // In a real scenario, you'd deploy a MockEntryPoint.sol here.
         // Example: activeNetworkConfig = NetworkConfig({ entryPoint: mockEntryPointAddress, account: BURNER_WALLET });
         console2.log("Deploying mock EntryPoint for local Anvil network...");

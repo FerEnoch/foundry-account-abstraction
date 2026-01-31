@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-import {Test, console2} from "forge-std/Test.sol";
-import {MinimalAccount} from "../../src/ethereum/MinimalAccount.sol";
-import {HelperConfig} from "../../script/HelperConfig.s.sol";
-import {DeployMinimal} from "../../script/DeployMinimal.s.sol";
+import {Test} from "forge-std/Test.sol";
+import {MinimalAccount} from "src/ethereum/MinimalAccount.sol";
+import {HelperConfig} from "script/HelperConfig.s.sol";
+import {DeployMinimal} from "script/DeployMinimal.s.sol";
 import {ERC20Mock} from "@openzeppelin/contracts/mocks/token/ERC20Mock.sol";
-import {SendPackedUserOp, PackedUserOperation} from "../../script/SendPackedUserOp.s.sol";
+import {SendPackedUserOp, PackedUserOperation} from "script/SendPackedUserOp.s.sol";
 import {IEntryPoint} from "lib/account-abstraction/contracts/interfaces/IEntryPoint.sol";
 import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import {MessageHashUtils} from "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol";
@@ -132,7 +132,7 @@ contract MinimalAccountTest is Test {
                 address(minimalAccount)
             );
 
-        // 4. Get the userOpHash again (as the EntryPoint) would calculate it
+        // 4. Get the userOpHash again as the EntryPoint would calculate it
         // Ensure we use the same EntryPoint address as used in signing
         bytes32 userOpHash = mockEntryPoint.getUserOpHash(userOp);
 
@@ -259,8 +259,10 @@ contract MinimalAccountTest is Test {
         );
         packedUserOps[0] = packedUserOp;
 
-        // Use vm.prank with both msg.sender and tx.origin set to randomUser
-        // This is required because EntryPoint's nonReentrant modifier checks:
+        // Use vm.prank with a randomUser to prove that the call is coming from a random
+        // EOA, as long as we sign the transaction with the owner's key.
+        // Use vm.prank with both msg.sender and tx.origin set to randomUser. This is required because EntryPoint's
+        // nonReentrant modifier checks:
         // tx.origin == msg.sender && msg.sender.code.length == 0
         vm.prank(randomUser, randomUser); // Simulate the bundler's address (msg.sender and tx.origin)
         mockEntryPoint.handleOps(
