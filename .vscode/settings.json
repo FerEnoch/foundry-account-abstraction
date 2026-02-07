@@ -7,5 +7,6 @@
     "editor.cursorWidth": 0,
     "workbench.colorCustomizations": {
         "editorCursor.foreground": "#ffffff"
-    }
+    },
+    "editor.formatOnSave": true
 }

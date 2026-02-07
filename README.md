@@ -1,66 +1,75 @@
-## Foundry
+# Foundry Account Abstraction
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+This is an educational project based on the Cyfrin Updraft curriculum.
 
-Foundry consists of:
+## Original Course
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+This project follows the course materials from the official Cyfrin Updraft repository: [github.com/cyfrin](https://github.com/cyfrin)
+
+## About
+
+This repository contains the implementation and exercises for learning account abstraction concepts using Foundry.
 
 ## Documentation
 
-https://book.getfoundry.sh/
+For more information about Foundry, visit: https://book.getfoundry.sh/
 
 ## Usage
 
-### Build
+This project includes a Makefile for convenient command execution. You can use either `make` commands or direct `forge` commands.
+
+### Makefile Commands
+
+#### Build Commands
 
 ```shell
-$ forge build
+make build          # Build all contracts (EVM + zkSync)
+make build-evm      # Build EVM contracts only
+make build-zksync   # Build zkSync contracts only
 ```
 
-### Test
+#### Test Commands
 
 ```shell
-$ forge test
+make test           # Run all tests (EVM + zkSync)
+make test-evm       # Run EVM tests only
+make test-zksync    # Run zkSync tests
+make test-zksync-v  # Run zkSync tests with verbose output
+make test-zksync-match MATCH=<pattern>  # Run specific zkSync test
 ```
 
-### Format
-
+Example:
 ```shell
-$ forge fmt
+make test-zksync-match MATCH=testZK__OwnerCanExecuteCommands
 ```
 
-### Gas Snapshots
+#### Utility Commands
 
 ```shell
-$ forge snapshot
+make clean          # Clean build artifacts
+make install        # Install dependencies
+make update         # Update dependencies
+make fmt            # Format code
+make fmt-check      # Check code formatting
+make snapshot-zksync # Create gas snapshot for zkSync
+make help           # Show all available commands
 ```
 
-### Anvil
+### Direct Forge Commands
 
 ```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
+forge build
+forge test
+forge fmt
+forge snapshot
+anvil
 ```
 
 ### Help
 
 ```shell
-$ forge --help
-$ anvil --help
-$ cast --help
+forge --help
+anvil --help
+cast --help
+make help
 ```
